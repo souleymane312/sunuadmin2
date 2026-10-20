@@ -1,6 +1,6 @@
 # Déploiement : MongoDB Atlas + Render (API) + Vercel (client)
 
-**État** : fichiers préparés, **jamais déployés ni testés en ligne**. À réserver à une démonstration avec des données fictives. Les offres, limites et prix des services changent : vérifiez-les sur leurs sites.
+**État** : le relais Vercel est configuré pour `https://sunuadmin2.onrender.com`. À réserver à une démonstration avec des données fictives. Les offres, limites et prix des services changent : vérifiez-les sur leurs sites.
 
 ```
 Navigateur -> Vercel (fichiers du client + relais /api) -> Render (API Express) -> Atlas (MongoDB)
@@ -15,9 +15,9 @@ Le relais `/api` de Vercel garde client et API sur la **même origine** : le coo
    - *Disque Render payant* : voir le bloc commenté de `render.yaml` et `UPLOAD_DIR=/data/uploads`.
    - *Rien* : les pièces disparaissent à chaque redémarrage (démonstration uniquement).
 3. **GitHub** : pousser le dépôt (`git status` ne doit lister aucun `.env`).
-4. **Render** : *New > Blueprint*, choisir le dépôt (`render.yaml`). Renseigner `MONGODB_URI`, les variables `S3_*` et, pour l'instant, une valeur provisoire pour `CLIENT_ORIGIN`. `JWT_SECRET` est généré. Une fois déployé, ouvrir `https://<votre-api>.onrender.com/api/v1/health` : la réponse doit contenir `"db": true`.
-5. **Vercel** : avant de déployer, remplacer `VOTRE-API` dans `client/vercel.json` par le nom de votre service Render, puis commit et push. *Add New > Project*, choisir le dépôt, **Root Directory = `client`**, preset Vite.
-6. **Retour sur Render** : mettre `CLIENT_ORIGIN` = l'URL exacte du site Vercel (sans « / » final) ; le service redémarre.
+4. **Render** : déployer l'API depuis `render.yaml`. Renseigner `MONGODB_URI` et les variables `S3_*` si le stockage objet est utilisé. `JWT_SECRET` est généré. Vérifier `https://sunuadmin2.onrender.com/api/v1/health` : la réponse doit contenir `"db": true`.
+5. **Vercel** : dans [votre tableau de bord](https://vercel.com/souleymane312s-projects), choisir *Add New > Project*, importer `souleymane312/sunuadmin2`, puis définir **Root Directory = `client`**, preset Vite, commande de build `npm run build` et dossier de sortie `dist`. Aucun secret ni variable d'environnement client n'est nécessaire. Déployer.
+6. **Retour sur Render** : mettre `CLIENT_ORIGIN` à l'URL de production exacte fournie par Vercel (par exemple `https://<votre-site>.vercel.app`, sans `/` final) ; le service redémarre.
 7. **Premier administrateur**, depuis votre PC, contre la base Atlas :
 ```powershell
 cd server

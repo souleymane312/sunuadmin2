@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://VOTRE-API.onrender.com/api/:path*" },
+    { "source": "/api/:path*", "destination": "https://sunuadmin2.onrender.com/api/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
