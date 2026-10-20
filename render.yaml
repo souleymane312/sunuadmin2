@@ -6,6 +6,7 @@ services:
     runtime: node
     rootDir: server
     plan: free
+    autoDeploy: true
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/v1/health
